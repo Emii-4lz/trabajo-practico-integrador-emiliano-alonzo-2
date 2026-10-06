@@ -15,6 +15,13 @@ import { router as tagRoutes } from './src/routes/tag.routes.js';
 import { router as articleTagRoutes } from './src/routes/article_tag.routes.js';
 
 const app = express();
+const cors = require('cors');
+
+app.use(cors({
+    origin: 'http://localhost:5173', // Para que me deje hacer peticiones desde el front
+    credentials: true, // no se
+}));
+
 const PORT = 3000;
 
 app.use(express.json());
