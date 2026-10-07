@@ -23,6 +23,11 @@ export const AppRouter = () => {
                 <Route element={<PrivateRoutes />}>
                     <Route path="/" element={<HomePage />} />
                 </Route>
+
+                {/* RUTA COMODÍN (Rutas inexistentes) */}
+                {/* Si pone una URL falsa, se manda a "/". 
+            Ahí PrivateRoutes decide si lo deja en HomePage o lo manda a LoginPage */}
+                <Route path="/*" element={<Navigate to="/" replace />} />
             </Routes>
         </BrowserRouter>
     );
