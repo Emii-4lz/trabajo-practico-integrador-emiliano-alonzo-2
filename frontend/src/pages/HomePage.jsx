@@ -19,17 +19,19 @@ export const HomePage = () => {
         )
     }
     return (
-        <div>
-            <h1>Artículos</h1>
-            <div>
+        <main className="max-w-4xl mx-auto p-4 mt-6">
+            <h1 className="text-3xl font-bold mb-8 text-gray-800">Últimos Artículos</h1>
+            <div className="flex flex-col gap-6">
                 {articles.map((article) => (
-                    <article key={article.id} className="article">
-                        <h2>{article.title}</h2>
-                        <p>{article.excerpt}</p>
-                        <p>{article.user_id}</p>
-                    </article>
+                <article key={article.id} className="border border-gray-200 p-6 rounded-lg shadow-sm hover:shadow-md bg-white">
+                    <h2 className="text-2xl font-bold text-blue-900 mb-2">{article.title}</h2>
+                    <p className="text-sm text-gray-500 mb-4">
+                    Por: <span className="font-semibold">{article.author}</span>
+                    </p>
+                    <p className="text-gray-700">{article.excerpt}</p>
+                </article>
                 ))}
             </div>
-        </div>
-    )
-}
+        </main>
+    );
+};

@@ -81,5 +81,5 @@ export const LoginPage = () => {
                 </p>
             </div>
         )
-    }
+    };
 };

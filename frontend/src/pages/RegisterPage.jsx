@@ -111,5 +111,5 @@ export const RegisterPage = () => {
         ¿Ya tienes cuenta? <Link to="/login" className="text-blue-600 hover:underline">Inicia sesión</Link>
       </p>
     </div>
-  );
+  )
 };
