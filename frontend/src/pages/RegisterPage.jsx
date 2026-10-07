@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router';
 import { useForm } from '../hooks/useForm';
 
 export const RegisterPage = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);backend
+  const [isLoading, setIsLoading] = useState(false); backend
   const [validationErrors, setValidationErrors] = useState([]);
   const { username, email, password, biography, handleInputChange, handleReset } = useForm({
     username: '',
@@ -50,7 +50,7 @@ export const RegisterPage = () => {
   return (
     <div className="max-w-md mx-auto mt-10 bg-white p-8 border border-gray-200 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Crear Cuenta</h2>
-      
+
       {validationErrors.length > 0 && (
         <div className="bg-red-100 text-red-700 p-3 mb-4 rounded text-sm">
           <ul className="list-disc pl-5">
@@ -97,9 +97,9 @@ export const RegisterPage = () => {
           onChange={handleInputChange}
           className="border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        
-        <button 
-          type="submit" 
+
+        <button
+          type="submit"
           disabled={isLoading}
           className="bg-green-600 text-white p-2 rounded hover:bg-green-700 transition disabled:bg-green-400 mt-2"
         >

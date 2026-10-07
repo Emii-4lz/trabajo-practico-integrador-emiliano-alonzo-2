@@ -1,8 +1,8 @@
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router';
 
 export const Navbar = () => {
   const navigate = useNavigate();
-  
+
   const isLogged = localStorage.getItem('isLogged') === 'true';
 
   if (!isLogged) {
@@ -29,13 +29,13 @@ export const Navbar = () => {
         <Link to="/" className="text-xl font-bold hover:text-blue-300 transition">
           Mi Blog Personal
         </Link>
-        <button 
-          onClick={handleLogout} 
+        <button
+          onClick={handleLogout}
           className="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-sm font-semibold transition"
         >
           Cerrar Sesión
         </button>
-        
+
       </div>
     </nav>
   );

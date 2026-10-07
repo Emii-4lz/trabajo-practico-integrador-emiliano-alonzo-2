@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router';
 
 export const PublicRoutes = () => {
     // Leemos el valor del localStorage
