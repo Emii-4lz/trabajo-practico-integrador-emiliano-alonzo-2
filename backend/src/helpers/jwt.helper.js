@@ -3,9 +3,11 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+const JWT_SECRET = process.env.JWT_SECRET || 'codigosecreto';
+
 export const generateToken = (payload) => {
     try {
-        return jwt.sign(payload, process.env.JWT_SECRET, {
+        return jwt.sign(payload, JWT_SECRET, {
             expiresIn: '1d'
         });
     } catch (error) {
@@ -15,7 +17,7 @@ export const generateToken = (payload) => {
 
 export const verifyToken = (token) => {
     try {
-        return jwt.verify(token, process.env.JWT_SECRET);
+        return jwt.verify(token, JWT_SECRET);
     } catch (error) {
         throw new Error('Error al verificar el token: ' + error.message);
     }

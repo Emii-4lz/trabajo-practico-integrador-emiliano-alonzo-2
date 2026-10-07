@@ -1,14 +1,27 @@
 import { User, Profile } from '../models/index.js';
+import { Op } from 'sequelize';
 import { matchedData } from 'express-validator';
 import { generateToken } from '../helpers/jwt.helper.js';
 import { comparePassword, hashPassword } from '../helpers/bcrypt.helper.js';
 
 export const login = async (req, res) => {
     try {
-        const { username, password } = matchedData(req);
+        const { username, email, password } = { ...req.body, ...matchedData(req) };
+        const identifier = username || email;
+
+        if (!identifier || !password) {
+            return res.status(400).json({
+                message: "Las credenciales que ha ingresado son incorrectas"
+            });
+        }
 
         const userExist = await User.findOne({
-            where: { username }
+            where: {
+                [Op.or]: [
+                    { email: identifier },
+                    { username: identifier }
+                ]
+            }
         });
 
         if (!userExist) {
@@ -50,7 +63,7 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
     try {
-        const { firstName, lastName, username, email, password } = req.body;
+        const { firstName, lastName, username, email, password, biography } = req.body;
 
         const existingEmail = await User.findOne({ where: { email } });
         if (existingEmail) {
@@ -70,9 +83,13 @@ export const register = async (req, res) => {
         });
 
         await Profile.create({
+            user_id: newUser.id,
             userId: newUser.id,
+            first_name: firstName,
             firstName,
-            lastName
+            last_name: lastName,
+            lastName,
+            biography: biography || null
         });
 
         return res.status(201).json({
@@ -92,3 +109,5 @@ export const logout = (req, res) => {
         message: "Cierre de sesión exitoso"
     });
 };
+
+export { getProfile, updateProfile } from './profile.controller.js';

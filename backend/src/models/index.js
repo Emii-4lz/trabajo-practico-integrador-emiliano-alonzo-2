@@ -9,6 +9,7 @@ Profile.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
 
 User.hasMany(Article, { foreignKey: 'user_id', as: 'articles', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 Article.belongsTo(User, { foreignKey: 'user_id', as: 'user' });
+Article.belongsTo(User, { foreignKey: 'user_id', as: 'author' });
 
 Article.belongsToMany(Tag, { through: ArticleTag, as: 'tags', foreignKey: 'article_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });
 Tag.belongsToMany(Article, { through: ArticleTag, as: 'articles', foreignKey: 'tag_id', onDelete: 'CASCADE', onUpdate: 'CASCADE' });

@@ -1,4 +1,5 @@
 import { verifyToken } from "../helpers/jwt.helper.js";
+import { Article } from "../models/article.model.js";
 
 export const authMiddleware = (req, res, next) => {
     try {
@@ -17,7 +18,7 @@ export const authMiddleware = (req, res, next) => {
 };
 
 export const adminCheckMiddleware = (req, res, next) => {
-    if (req.user || req.user.role !== 'admin') {
+    if (!req.user || req.user.role !== 'admin') {
         return res.status(403).json({ message: "No tenes privilegios de administrador para realizar esta accion" });
     }
     next();

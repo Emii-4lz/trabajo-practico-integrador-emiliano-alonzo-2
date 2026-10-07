@@ -8,6 +8,7 @@ export const createArticle = async (req, res) => {
             content,
             excerpt,
             status,
+            user_id: req.user.id,
             userId: req.user.id
         });
 
@@ -53,7 +54,7 @@ export const getArticleById = async (req, res) => {
 export const getUserArticles = async (req, res) => {
     try {
         const articles = await Article.findAll({
-            where: { userId: req.user.id, status: 'published' },
+            where: { user_id: req.user.id, status: 'published' },
             include: [{ model: Tag, as: 'tags', through: { attributes: [] } }]
         });
         return res.status(200).json(articles);
@@ -66,7 +67,7 @@ export const getUserArticleById = async (req, res) => {
     try {
         const { id } = req.params;
         const article = await Article.findOne({
-            where: { id, userId: req.user.id },
+            where: { id, user_id: req.user.id },
             include: [{ model: Tag, as: 'tags', through: { attributes: [] } }]
         });
 
@@ -85,7 +86,8 @@ export const updateArticle = async (req, res) => {
 
         if (!article) return res.status(404).json({ message: 'Artículo no encontrado.' });
 
-        if (article.userId !== req.user.id && req.user.role !== 'admin') {
+        const ownerId = article.user_id || article.userId;
+        if (ownerId !== req.user.id && req.user.role !== 'admin') {
             return res.status(403).json({ message: 'No tenes privilegios de administrador para realizar esta accion.' });
         }
 
@@ -103,7 +105,8 @@ export const deleteArticle = async (req, res) => {
 
         if (!article) return res.status(404).json({ message: 'Artículo no encontrado.' });
 
-        if (article.userId !== req.user.id && req.user.role !== 'admin') {
+        const ownerId = article.user_id || article.userId;
+        if (ownerId !== req.user.id && req.user.role !== 'admin') {
             return res.status(403).json({ message: 'No tenes privilegios de administrador para realizar esta accion' });
         }
 

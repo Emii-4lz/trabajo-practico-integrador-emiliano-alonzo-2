@@ -6,7 +6,7 @@ export const Navbar = () => {
   const isLogged = localStorage.getItem('isLogged') === 'true';
 
   if (!isLogged) {
-    return;
+    return null;
   }
 
   const handleLogout = async () => {

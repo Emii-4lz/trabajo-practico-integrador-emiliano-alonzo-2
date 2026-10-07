@@ -8,8 +8,8 @@ export const router = Router();
 
 router.post('/', authMiddleware, articleValidation, validate, createArticle);
 router.get('/', authMiddleware, getArticles);
-router.get('/', authMiddleware, getUserArticles);
-router.get('/:id', authMiddleware, getUserArticleById);
+router.get('/user/all', authMiddleware, getUserArticles);
+router.get('/user/:id', authMiddleware, getUserArticleById);
 router.get('/:id', authMiddleware, getArticleById);
 router.put('/:id', authMiddleware, articleValidation, validate, updateArticle);
 router.delete('/:id', authMiddleware, deleteArticle);

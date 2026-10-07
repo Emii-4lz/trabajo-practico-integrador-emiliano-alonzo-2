@@ -1,5 +1,5 @@
 import { User, Profile, Article } from '../models/index.js';
-import { hashPassword } from '../helpers/bcrpyt.helper.js';
+import { hashPassword } from '../helpers/bcrypt.helper.js';
 
 export const getUsers = async (req, res) => {
     try {
